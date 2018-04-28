@@ -1,0 +1,17 @@
+variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    GIT_SSL_NO_VERIFY: "true"
+
+stages:
+    - deploy
+
+deploy:
+    stage: deploy
+    image: nohitme/hugo-firebase
+    script:
+        # build site
+        - cd ${CI_PROJECT_DIR}/web-start
+        # upload
+        - firebase deploy --token ${FIREBASE_TOKEN}
+    only:
+        - master
